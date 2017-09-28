@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp20
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a, b, x, y, z;
+            a = Convert.ToInt32(Console.ReadLine());
+            b = Convert.ToInt32(Console.ReadLine());
+            x = Convert.ToInt32(Console.ReadLine());
+            y = Convert.ToInt32(Console.ReadLine());
+            z = Convert.ToInt32(Console.ReadLine());
+            int s_otv = a * b;
+            if ((a == x && b == y) || (b == x && a == y) || (a == y && b == z) || (a == z && b == x) || (a == z && b == y) || (a == x && b == z))
+            {
+                Console.WriteLine(" да");
+            }
+            else Console.WriteLine("нет");
+            Console.ReadLine();
+
+        }
+    }
+}
