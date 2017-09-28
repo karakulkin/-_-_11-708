@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp22
+{
+    class Program
+    {
+        static void Main(string[] args) 
+        {
+            int a = Convert.ToInt32(Console.ReadLine());
+            int b = Convert.ToInt32(Console.ReadLine());
+            int c = Convert.ToInt32(Console.ReadLine());
+            int d = Convert.ToInt32(Console.ReadLine());
+            if ((a < c) & (c < b) & (b < d))
+            {
+                Console.WriteLine("[c,b]");
+                Console.ReadKey();
+            }
+            if ((a < c) & (d < b))
+            {
+                Console.WriteLine("[c,d]");
+                Console.ReadKey();
+            }
+            if ((a > c) & (b < d))
+            {
+                Console.WriteLine("[a,b]");
+                Console.ReadKey();
+            }
+            if ((a > c) & (b > d))
+            {
+                Console.WriteLine("[a,d]");
+                Console.ReadKey();
+            }
+        }
+    }
+}
