@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp44
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double e = Convert.ToDouble(Console.ReadLine());
+            double p = 4.0 / 3.0;
+            double t = 4.0 / 3.0;
+           int n = 1;
+            while ((t - 1) > e){
+
+                n= n + 1;
+                t= (4 * n * n) / ((4 * n * n) - 1);
+                p= p * t;
+               
+            }
+            Console.WriteLine(p);
+            Console.ReadKey();
+        }
+    }
+}
