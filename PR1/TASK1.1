@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp45
+{
+    class Program
+    {static int Factorial(int k)
+        {
+            int factorial = 1;
+            if (k == 1 || (k==2))
+            {
+                return 1;
+            }
+            for (int i= 1;i<= k; i++)
+            {
+                factorial = factorial * i;
+
+            }
+            return factorial;
+        }
+       
+        static void Main(string[] args)
+        { int k = 1;
+            double sum = 1;
+            int step = 0;
+            double ci = 1;
+            int x = Convert.ToInt32(Console.ReadLine());
+            double e = Convert.ToDouble(Console.ReadLine());
+            while (ci > e)
+            {
+                ci = Math.Pow(x, 2 * k) / (Factorial(2 * k));
+                k++;
+                step++;
+                sum = sum + ci;
+                
+            }
+            Console.WriteLine(sum);
+            Console.WriteLine(step);
+            Console.ReadKey();
+
+        }
+     
+    }
+}
