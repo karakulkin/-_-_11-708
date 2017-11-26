@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp45
+{
+    class Program
+    {
+         static void Main(string[] args)
+        { int k = 1;
+            int z=-1;
+            double sum = 1;
+            int step = 0;
+            double ci = 1;
+            double x = Convert.ToDouble(Console.ReadLine());
+            double e = Convert.ToDouble(Console.ReadLine());
+            while (ci > e)
+            {
+                ci = z/(Math.Pow(x, 2 * k+1)) * (2*k+1);
+                k++;
+                step++;
+                sum = sum + ci;
+                z=-z;
+            }
+            Console.WriteLine(sum);
+            Console.WriteLine(step);
+            Console.ReadKey();
+
+        }
+     
+    }
+}
