@@ -1,0 +1,219 @@
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Windows.Forms; 
+using System.Text; 
+using System.Threading.Tasks; 
+using System.Threading; 
+namespace Snake 
+{ 
+class Program 
+{ 
+static string buttonpressed = "NO"; 
+static string movement = "RIGHT"; // начало движения ( сторона(лево,право,вниз,наверх)) 
+static int score = 5; // длина змейки (начальная) 
+static bool gameover = false; // конец игры 
+static int levelgame; // уровень игры 
+static void Main(string[] args) 
+{ 
+Tannenbaum(); 
+Level(); 
+Console.CursorVisible = false; 
+Console.WindowHeight = 32; 
+Console.WindowWidth = 64; 
+Console.BackgroundColor = ConsoleColor.Gray; 
+int screenheight = Console.WindowHeight; // переменная для хранения высоты окна 
+int screenwidth = Console.WindowWidth; // переменная для хранения ширины окна 
+Random randomnummer = new Random(); // случайное число 
+Pixel head = new Pixel 
+{ 
+X = screenwidth / 2, // позиция змейки по ширине 
+Y = screenheight / 2, // позиция змейки по высоте 
+Snakeheadcolor = ConsoleColor.DarkRed // цвет головы змейки 
+}; 
+List<int> xlongsnake = new List<int>(); // длина змейки 
+List<int> ylongsnake = new List<int>(); 
+int berryx = randomnummer.Next(1, screenwidth - 1); // появление ягодки 
+int berryy = randomnummer.Next(1, screenheight - 1); // появление ягодки 
+DateTime time = DateTime.Now; 
+DateTime time2 = DateTime.Now; 
+while (true) // бесконечный цикл (очень-очень) важно, чтобы игра просто так не заканчивалась 
+{ 
+Console.Clear(); // обновление положения змейки очень-очень важно 
+if (head.X == screenwidth - 1 || head.X == 0 || head.Y == screenheight - 1 || head.Y == 0) 
+{ 
+gameover = true; // если выполняется условие "если", то игра заканчивается 
+} 
+
+Console.ForegroundColor = ConsoleColor.Red; 
+if (berryx == head.X && berryy == head.Y) // змейка кушает ягодку
+{ 
+score++; // увеличивается тело змейки и соответственно счет игры 
+berryx = randomnummer.Next(2, screenwidth - 2); // заново рандомим ягодку 
+berryy = randomnummer.Next(2, screenheight - 2); // заново рандомим ягодку 
+} 
+for (int i = 0; i < screenwidth; i++) 
+{ 
+Console.SetCursorPosition(i, 0); 
+Console.Write("■"); 
+} 
+for (int i = 0; i < screenwidth; i++) 
+{ 
+Console.SetCursorPosition(i, screenheight - 1); 
+Console.Write("■"); 
+} 
+for (int i = 0; i < screenheight; i++) 
+{ 
+Console.SetCursorPosition(0, i); 
+Console.Write("█"); 
+} 
+for (int i = 0; i < screenheight; i++) 
+{ 
+Console.SetCursorPosition(screenwidth - 1, i); 
+Console.Write("█"); 
+} 
+
+for (int i = 0; i < xlongsnake.Count(); i++) // если змейка врезается в себя , то игра заканчивается 
+{ 
+Console.SetCursorPosition(xlongsnake[i], ylongsnake[i]); 
+if (movement == "RIGHT" || movement == "LEFT") 
+{ 
+Console.Write("■"); 
+} 
+else if (movement == "UP" || movement == "DOWN") 
+{ 
+Console.Write("█"); 
+} 
+if (xlongsnake[i] == head.X && ylongsnake[i] == head.Y) 
+{ 
+gameover = true; 
+} 
+} 
+if (gameover == true) 
+{ 
+break; 
+} 
+Console.SetCursorPosition(head.X, head.Y); 
+Console.ForegroundColor = head.Snakeheadcolor; 
+Console.Write("■"); 
+Console.SetCursorPosition(berryx, berryy); 
+Console.ForegroundColor = ConsoleColor.Black; 
+Console.Write("■"); 
+time = DateTime.Now; 
+buttonpressed = "NO"; 
+while (true) 
+{ 
+time2 = DateTime.Now; 
+if (time2.Subtract(time).TotalMilliseconds > levelgame) { break; } 
+if (Console.KeyAvailable) // блок управления змейкой 
+{ 
+ConsoleKeyInfo ControlSnake = Console.ReadKey(true); 
+if (ControlSnake.Key.Equals(ConsoleKey.UpArrow) && movement 
+!= "DOWN" && buttonpressed == "NO") 
+{ 
+movement = "UP"; 
+buttonpressed = "YES"; 
+} 
+if (ControlSnake.Key.Equals(ConsoleKey.DownArrow) && movement != "UP" && buttonpressed == "NO") 
+{ 
+movement = "DOWN"; 
+buttonpressed = "YES"; 
+} 
+if (ControlSnake.Key.Equals(ConsoleKey.LeftArrow) && movement != "RIGHT" && buttonpressed == "NO") 
+{ 
+movement = "LEFT"; 
+buttonpressed = "YES"; 
+} 
+if (ControlSnake.Key.Equals(ConsoleKey.RightArrow) && movement != "LEFT" && buttonpressed == "NO") 
+{ 
+movement =
+"RIGHT"; 
+buttonpressed = "YES"; 
+} 
+} 
+} 
+xlongsnake.Add(head.X); 
+ylongsnake.Add(head.Y); 
+switch (movement) 
+{ 
+case "UP": 
+head.Y--; 
+break; 
+case "DOWN": 
+head.Y++; 
+break; 
+case "LEFT": 
+head.X--; 
+break; 
+case "RIGHT": 
+head.X++; 
+break; 
+} 
+if (xlongsnake.Count() > score) 
+{ 
+xlongsnake.RemoveAt(0); 
+ylongsnake.RemoveAt(0); 
+} 
+} 
+Console.SetCursorPosition(screenwidth / 5, screenheight / 2); 
+Console.WriteLine("GAMEOVER , SCORE: " + (score -= 5)); 
+Console.SetCursorPosition(screenwidth / 5, screenheight / 2 + 1); 
+} 
+static void Level() 
+{ 
+Console.WriteLine("Выберите один из уровней сложности - Madness , Impossible , Hard , Medium , Low , PlayLegs - "); 
+string complexitylevel = Console.ReadLine(); 
+if (complexitylevel.Contains("Madness")) levelgame = 25; 
+if (complexitylevel.Contains("Impossible")) levelgame = 50; 
+if (complexitylevel.Contains("Hard")) levelgame = 150; 
+if (complexitylevel.Contains("Medium")) levelgame = 350; 
+if (complexitylevel.Contains("Low")) levelgame = 500; 
+if (complexitylevel.Contains("PlayLegs")) levelgame = 1000; 
+} 
+class Pixel 
+{ 
+public int X { get; set; } 
+public int Y { get; set; } 
+public ConsoleColor Snakeheadcolor { get; set; } 
+} 
+private static void Tannenbaum() // Данный метод больше 12 строк (разобрать этот код очень просто) 
+// Что-то вроде "В лесу родилась ёлочка" 
+{ 
+Console.ForegroundColor = ConsoleColor.Red; 
+Console.WriteLine("С НАСТУПАЮЩИМ НОВЫМ ГОДОМ!" + "\n" + 
+"Сейчас вы сыграете в игру Змейка " + "\n" + 
+"Игру делали : Иван Торгашов(11-708) и Александр Каракулькин(11-708)" + "\n" + 
+"Приятной игры!"); 
+Console.Beep(247, 300); 
+Console.Beep(417, 300); 
+Console.Beep(417, 300); 
+Console.Beep(370, 300); 
+Console.Beep(417, 300); 
+Console.Beep(329, 300); 
+Console.Beep(247, 300); 
+Console.Beep(247, 300); 
+Console.Beep(247, 300); 
+Console.Beep(417, 300); 
+Console.Beep(417, 300); 
+Console.Beep(370, 300); 
+Console.Beep(417, 300); 
+Console.Beep(497, 300); 
+Thread.Sleep(300); 
+Console.Beep(497, 300); 
+Console.Beep(277, 300); 
+Console.Beep(277, 300); 
+Console.Beep(440, 300); 
+Console.Beep(440, 300); 
+Console.Beep(417, 300); 
+Console.Beep(370, 300); 
+Console.Beep(329, 300); 
+Console.Beep(247, 300); 
+Console.Beep(417, 300); 
+Console.Beep(417, 300); 
+Console.Beep(370, 300); 
+Console.Beep(417, 300); 
+Console.Beep(329, 300); 
+Console.Clear(); 
+} 
+} 
+}
