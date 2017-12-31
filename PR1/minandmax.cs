@@ -13,6 +13,7 @@ namespace ConsoleApp32
             int x = Convert.ToInt32(Console.ReadLine());
             int max = x;
             int min = x;
+	    // ---check--- while(x!=0)
             while ((x > 0)||(x<0))
             {
                  x = Convert.ToInt32(Console.ReadLine());

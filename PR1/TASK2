@@ -8,12 +8,13 @@ namespace ConsoleApp44
 {
     class Program
     {
-        static void Main(string[] args)
+		static void Main(string[] args)
         {
             double e = Convert.ToDouble(Console.ReadLine());
             double p = 4.0 / 3.0;
             double t = 4.0 / 3.0;
            int n = 1;
+			//---check--- надо выделять вычислительную часть в отдельный метод
             while ((t - 1) > e){
 
                 n= n + 1;

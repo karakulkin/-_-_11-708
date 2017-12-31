@@ -8,6 +8,7 @@ namespace ConsoleApp28
 {
     class Program
     {
+	// ---check--- можно было это сделать без цикла
         static void Main(string[] args)
         {
             int kol = 1;

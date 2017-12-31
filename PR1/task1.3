@@ -33,6 +33,7 @@ namespace ConsoleApp46
             double e = Convert.ToDouble(Console.ReadLine());
             while (ci > e)
             {
+				// ---check--- аналогично, рассчёт неоптимален
                 ci = (z * (Factorial(2 * k))*Math.Pow(x,k)) / ((1 - 2 * k)*(Factorial(k))* (Factorial(k)))*(Math.Pow(4,k)); 
                 k++;
                 step++;

@@ -31,6 +31,7 @@ namespace ConsoleApp45
             double e = Convert.ToDouble(Console.ReadLine());
             while (ci > e)
             {
+				//---check--- так считать неоптимально, нужно домножать на x и делить на (2k-1)2k, не пересчитывая факториал и степень
                 ci = Math.Pow(x, 2 * k) / (Factorial(2 * k));
                 k++;
                 step++;
