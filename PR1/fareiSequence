@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp56
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            if (n > 0)
+            {
+                Farei(n);
+            }
+            else
+                Console.WriteLine("null");
+        }
+        public static void Farei(int n)
+        {
+            Console.WriteLine("{0}/{1}", 0, 1);
+            Farei(n, 0, 1, 1, 1);
+            Console.WriteLine("{0}/{1}", 1, 1);
+        }
+        private static void Farei(int n, int a, int b, int c, int d)
+        {
+            int chislitel = a + c, znamenatel = b + d;
+            if (znamenatel <= n)
+            {
+                Farei(n, a, b, chislitel, znamenatel);
+                Console.WriteLine("{0}/{1}", chislitel, znamenatel);
+                Farei(n, chislitel, znamenatel, c, d);
+            }
+        }
+    }
+}
