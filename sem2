@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace BinaryTreeSortConsoleCSharp
+{
+    class Program
+    { 
+        static int max = 0;
+        class Tree
+        {
+            public int Value;
+            public Tree Left;
+            public Tree Right;
+        }
+
+        static void Main(string[] args)
+        {
+            int[] data = new int[100];
+            //заполняем массив случайными числами
+            Random rd = new Random();
+            for (int i = 0; i < data.Length; ++i)
+                data[i] = rd.Next(1, 101);
+            Console.WriteLine("Массив до сортировки:");
+            foreach (int x in data)
+                Console.Write(x + " ");
+
+            BinaryTreeSort(ref data);
+
+            Console.WriteLine();
+            Console.WriteLine("Массив после сортировки бинарным деревом:");
+            foreach (int x in data)
+                Console.Write(x + " ");
+            Console.ReadLine();
+        }
+
+        static void BinaryTreeSort(ref int[] data)
+        {
+            Tree root = null;
+            for (int i = 0; i < data.Length; i++)
+                root = AddToTree(root, data[i]);
+
+            TreeToArray(root, data);
+        }
+
+        static Tree AddToTree(Tree root, int newValue)
+        {
+
+            if (root == null) // если нет сыновей - создаем новый элемент
+            {
+                root = new Tree();
+                root.Value = newValue;
+                root.Left = null;
+                root.Right = null;
+
+                return root;
+            }
+            if (root.Value < newValue)  // добавлем ветвь
+                root.Right = AddToTree(root.Right, newValue);
+            else
+                root.Left = AddToTree(root.Left, newValue);
+
+            return root;
+        }
+
+        static void TreeToArray(Tree root, int[] data)
+        {
+            // условие окончания - нет сыновей
+            if (root == null)
+                return; 
+             
+            TreeToArray(root.Left, data);
+            data[max++] = root.Value;
+            TreeToArray(root.Right, data);
+        }
+    }
+}
